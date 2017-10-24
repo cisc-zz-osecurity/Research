@@ -61,7 +61,7 @@ public class Synchronize {
         synchronizes.testIncrementSync();
     }
 
-    void stop(ExecutorService threadPoolExecutor) {
+    static void stop(ExecutorService threadPoolExecutor) {
         threadPoolExecutor.shutdown();
         try {
             threadPoolExecutor.awaitTermination(10, TimeUnit.SECONDS);
@@ -76,7 +76,7 @@ public class Synchronize {
         }
     }
 
-    class DemoThreadFactory implements ThreadFactory {
+    static class DemoThreadFactory implements ThreadFactory {
         /**
          * Constructs a new {@code Thread}.  Implementations may also initialize
          * priority, name, daemon status, {@code ThreadGroup}, etc.
