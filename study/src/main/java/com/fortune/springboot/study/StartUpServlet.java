@@ -1,10 +1,9 @@
 package com.fortune.springboot.study;
 
-import javax.servlet.ServletContainerInitializer;
+import org.springframework.web.WebApplicationInitializer;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HandlesTypes;
-import java.util.Set;
 
 /**
  * 一般伴随着ServletContainerInitializer一起使用的还有HandlesTypes注解，
@@ -13,10 +12,9 @@ import java.util.Set;
  * @author fortune.wu
  * @date 17/10/27
  */
-@HandlesTypes({})
-public class StartUpServlet implements ServletContainerInitializer {
+public class StartUpServlet implements WebApplicationInitializer {
     @Override
-    public void onStartup(Set<Class<?>> set, ServletContext servletContext) throws ServletException {
-        System.out.println("自动测试servlet容器");
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        System.out.println("Spring start--------");
     }
 }
