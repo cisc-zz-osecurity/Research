@@ -68,8 +68,8 @@ public class StampedLock {
             /**
              * 如果读取的时候发生了写，则stampedLock的stamp属性值会变化，此时需要重读，
              * 在重读的时候需要加读锁（并且重读时使用的应当是悲观的读锁，即阻塞写的读锁）
-             * 当然重读的时候还可以使用tryOptimisticRead，此时需要结合循环了，即类似CAS方式
-             * 读锁又重新返回一个stampe值
+             * 如果stamp是不可用的,则意味着在读取的过程中,可能被其他线程改写了数据,
+             * 因此,有可能出现脏读,如果如果出现这种情况,我们可以像CAS操作那样在一个死循环中一直使用乐观锁,直到成功为止
              */
             long stamp = stampedLock.tryOptimisticRead();
             try {
