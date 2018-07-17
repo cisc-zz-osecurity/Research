@@ -23,6 +23,7 @@ public class StampedLock {
         ExecutorService executor = new ThreadPoolExecutor(3, 5, 3, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(5), factory, new ThreadPoolExecutor.AbortPolicy());
         executor.submit(() -> {
+            System.out.println("write starting ...");
             long writeLock = stampedLock.writeLock();
             try {
                 Thread.sleep(10000);
@@ -32,14 +33,17 @@ public class StampedLock {
                 e.printStackTrace();
             } finally {
                 stampedLock.unlockWrite(writeLock);
+                System.out.println("write ended ...");
             }
         });
         Runnable readTask = () -> {
+            System.out.println("read starting ...");
             long stamp = stampedLock.readLock();
             try {
                 System.out.println(map.get("foo"));
             } finally {
                 stampedLock.unlockRead(stamp);
+                System.out.println("read ended ...");
             }
         };
         executor.submit(readTask);

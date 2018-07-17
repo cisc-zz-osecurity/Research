@@ -23,6 +23,7 @@ public class ReadWriteLock {
         ExecutorService executors = new ThreadPoolExecutor(2, 5, 3, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(3), factory, new ThreadPoolExecutor.AbortPolicy());
         executors.submit(() -> {
+            System.out.println("write starting ...");
             lock.writeLock().lock();
             try {
                 Thread.sleep(1000);
@@ -31,9 +32,11 @@ public class ReadWriteLock {
                 e.printStackTrace();
             } finally {
                 lock.writeLock().unlock();
+                System.out.println("write ended ...");
             }
         });
         Runnable runnable = () -> {
+            System.out.println("read starting ...");
             lock.readLock().lock();
             try {
                 System.out.println(map.get("foo"));
@@ -42,6 +45,7 @@ public class ReadWriteLock {
                 e.printStackTrace();
             } finally {
                 lock.readLock().unlock();
+                System.out.println("read ended ...");
             }
         };
         executors.submit(runnable);
