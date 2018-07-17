@@ -20,13 +20,14 @@ public class StampedLock {
         java.util.concurrent.locks.StampedLock stampedLock = new java.util.concurrent.locks.StampedLock();
         Map<String, String> map = new HashMap<>(3);
 
-        ExecutorService executor = new ThreadPoolExecutor(2, 5, 3, TimeUnit.SECONDS,
+        ExecutorService executor = new ThreadPoolExecutor(3, 5, 3, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(5), factory, new ThreadPoolExecutor.AbortPolicy());
         executor.submit(() -> {
             long writeLock = stampedLock.writeLock();
             try {
                 Thread.sleep(10000);
                 map.put("foo", "bar");
+                System.out.println("write value to map");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
