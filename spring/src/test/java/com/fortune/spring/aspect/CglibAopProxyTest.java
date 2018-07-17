@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = AopConfiguration.class)
-public class AopProxyTest {
+public class CglibAopProxyTest {
     @Autowired
     private AopProxy aopProxy;
 

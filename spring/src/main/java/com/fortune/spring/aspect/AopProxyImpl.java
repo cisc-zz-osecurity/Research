@@ -21,6 +21,7 @@ public class AopProxyImpl implements AopProxy {
 
     @Override
     public void getC() {
-
+        System.out.println("c process....");
+        getB();
     }
 }
