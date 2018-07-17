@@ -61,6 +61,16 @@ public class StampedLock {
         ExecutorService executor = new ThreadPoolExecutor(2, 5, 0, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<Runnable>(5), factory, new ThreadPoolExecutor.AbortPolicy());
         executor.submit(() -> {
+            /**
+             * tryOptimisticRead是一个乐观的读，使用这种锁的读不阻塞写
+             * 每次读的时候得到一个当前的stamp值（类似时间戳的作用）
+             */
+            /**
+             * 如果读取的时候发生了写，则stampedLock的stamp属性值会变化，此时需要重读，
+             * 在重读的时候需要加读锁（并且重读时使用的应当是悲观的读锁，即阻塞写的读锁）
+             * 当然重读的时候还可以使用tryOptimisticRead，此时需要结合循环了，即类似CAS方式
+             * 读锁又重新返回一个stampe值
+             */
             long stamp = stampedLock.tryOptimisticRead();
             try {
                 System.out.println("Optimistic Lock Valid: " + stampedLock.validate(stamp));
