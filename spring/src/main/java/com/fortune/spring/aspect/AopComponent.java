@@ -22,13 +22,13 @@ public class AopComponent {
     public void around(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
         String name = signature.getMethod().getName();
-        System.out.println(name + "process starting ...");
+        System.out.println(name + " process starting ...");
         try {
             point.proceed();
         } catch (Throwable throwable) {
 
         } finally {
-            System.out.println(name + "process ended ...");
+            System.out.println(name + " process ended ...");
         }
     }
 }
