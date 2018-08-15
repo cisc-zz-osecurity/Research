@@ -8,6 +8,8 @@ package com.fortune.jdk.reference;
  */
 public class StrongReferenceDemo {
 
+    private final Integer integer = new Integer(123);
+
     /**
      *只要某个对象有强引用与之关联，JVM必定不会回收这个对象，即使在内存不足的情况下，
      * JVM宁愿抛出OutOfMemory错误也不会回收这种对象.
@@ -18,7 +20,9 @@ public class StrongReferenceDemo {
      * @param args
      */
     public static void main(String[] args) {
-        new StrongReferenceDemo().fun1();
+        //new StrongReferenceDemo().fun1();
+        System.out.println(new StrongReferenceDemo().getInteger());
+        System.out.println(new StrongReferenceDemo().getInteger());
     }
 
     public void fun1() {
@@ -28,5 +32,9 @@ public class StrongReferenceDemo {
          * 不过要注意的是，当fun1运行完之后，object和objArr都已经不存在了，所以它们指向的对象都会被JVM回收。
          */
         Object[] objArr = new Object[1000];
+    }
+
+    public Integer getInteger() {
+        return integer;
     }
 }
