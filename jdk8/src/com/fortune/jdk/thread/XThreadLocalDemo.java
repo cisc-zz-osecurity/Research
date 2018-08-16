@@ -12,6 +12,13 @@ public class XThreadLocalDemo {
 
     public static void main(String[] args) throws InterruptedException {
 
+        /**
+         * 当线程池中的线程数量等于corePoolSize 时，
+         * 如果继续提交任务，该任务会被添加到阻塞队列workQueue中，
+         * 当阻塞队列也满了之后，则线程池会新建线程执行任务直到maximumPoolSize。
+         * 由于FixedThreadPool使用的是“无界队列”LinkedBlockingQueue，
+         * 那么maximumPoolSize参数无效，同时指定的拒绝策略AbortPolicy也将无效。
+         */
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2, 2, 30,
                 TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>(3), new ThreadPoolExecutor.AbortPolicy());
         poolExecutor.execute(() ->  {
