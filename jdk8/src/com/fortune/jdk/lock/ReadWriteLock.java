@@ -6,6 +6,8 @@ import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
+ * 读写锁-读读无锁
+ *
  * @author fortune.wu
  * @date 17/10/24
  */
